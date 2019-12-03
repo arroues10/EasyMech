@@ -5,14 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "mechanic")
-public class Mechanic {
-
+@Table(name = "part")
+public class Part {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -20,11 +17,7 @@ public class Mechanic {
 	@Column(name = "name")
 	private String name;
 
-	@OneToOne()
-	@JoinColumn(name = "work_card_id")
-	private WorkCard workCard;
-
-	public Mechanic() {
+	public Part() {
 
 	}
 
@@ -44,17 +37,9 @@ public class Mechanic {
 		this.name = name;
 	}
 
-	public WorkCard getWorkCard() {
-		return workCard;
-	}
-
-	public void setWorkCard(WorkCard workCard) {
-		this.workCard = workCard;
-	}
-
 	@Override
 	public String toString() {
-		return "Mechanic [id=" + id + ", name=" + name + ", workCard=" + workCard + "]";
+		return "Part [id=" + id + ", name=" + name + "]";
 	}
 
 }
