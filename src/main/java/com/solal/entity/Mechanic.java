@@ -19,6 +19,8 @@ public class Mechanic {
 	private long id;
 	@Column(name = "name")
 	private String name;
+	@Column(name = "password")
+	private String password;
 
 	@OneToOne()
 	@JoinColumn(name = "work_card_id")
@@ -44,6 +46,14 @@ public class Mechanic {
 		this.name = name;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public WorkCard getWorkCard() {
 		return workCard;
 	}
@@ -54,7 +64,6 @@ public class Mechanic {
 
 	@Override
 	public String toString() {
-		return "Mechanic [id=" + id + ", name=" + name + ", workCard=" + workCard + "]";
+		return "Mechanic [id=" + id + ", name=" + name + ", password=" + password + ", workCard=" + workCard + "]";
 	}
-
 }
