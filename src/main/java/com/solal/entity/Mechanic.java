@@ -1,5 +1,7 @@
 package com.solal.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -64,5 +66,9 @@ public class Mechanic {
 	@Override
 	public String toString() {
 		return "Mechanic [id=" + id + ", name=" + name + ", password=" + password + ", workCard=" + workCard + "]";
+	}
+
+	public void addPartsToWorkCard(List<Part> parts) {
+		workCard.setParts(parts);
 	}
 }

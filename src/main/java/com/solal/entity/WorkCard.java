@@ -31,6 +31,14 @@ public class WorkCard {
 		parts = new ArrayList<>();
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getPlateNumber() {
 		return plateNumber;
 	}
@@ -39,9 +47,16 @@ public class WorkCard {
 		this.plateNumber = plateNumber;
 	}
 
-	@Override
-	public String toString() {
-		return "WorkCard [plateNumber=" + plateNumber + "]";
+	public List<Part> getParts() {
+		return parts;
 	}
 
+	public void setParts(List<Part> parts) {
+		this.parts = parts;
+	}
+
+	@Override
+	public String toString() {
+		return "WorkCard [id=" + id + ", plateNumber=" + plateNumber + ", parts=" + parts + "]";
+	}
 }
