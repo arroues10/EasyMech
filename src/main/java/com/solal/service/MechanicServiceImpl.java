@@ -21,11 +21,12 @@ public class MechanicServiceImpl implements MechanicService {
 		return mechanicRepository.findById(mechanicId).orElse(null);
 	}
 
-	public void addParts(List<Part> parts) {
+	public List<Part> addParts(List<Part> parts) {
 		Mechanic mechanic = getMechanic();
 
 		mechanic.addPartsToWorkCard(parts);
 		mechanicRepository.save(mechanic);
+		return parts;
 	}
 
 }
