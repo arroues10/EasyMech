@@ -48,4 +48,19 @@ public class StoreKeeperController {
 		return ResponseEntity.ok(allWorkCardParts);
 	}
 
+	@GetMapping("/storeKeepers/allParts/{token}")
+	public ResponseEntity<List<Part>> getAllParts(@PathVariable String token) throws InvalidTokenException {
+		ClientSession session = getSession(token);
+		if (session == null) {
+			throw new InvalidTokenException("Invalid token");
+		}
+		StoreKeeperService service = (StoreKeeperService) session.getService();
+		final List<Part> allParts = service.getAllParts();
+
+		if (allParts.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(allParts);
+	}
+
 }

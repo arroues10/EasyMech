@@ -24,11 +24,16 @@ public class WorkCard {
 	@Column(name = "plateNumber")
 	private String plateNumber;
 
-	@OneToMany(mappedBy = "workCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "workCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Part> parts;
 
 	public WorkCard() {
 		parts = new ArrayList<>();
+	}
+
+	public WorkCard(String plateNumber) {
+		this();
+		this.plateNumber = plateNumber;
 	}
 
 	public long getId() {

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "part")
 public class Part {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -28,6 +29,11 @@ public class Part {
 
 	public Part() {
 
+	}
+
+	public Part(String name) {
+		this();
+		this.name = name;
 	}
 
 	public long getId() {

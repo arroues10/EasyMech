@@ -8,4 +8,6 @@ public interface StoreKeeperService extends Service {
 
 	List<Part> getAllWorkCardParts(long workCardId);
 
+	List<Part> getAllParts();
+
 }
