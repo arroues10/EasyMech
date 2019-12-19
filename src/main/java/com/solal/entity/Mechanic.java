@@ -1,14 +1,10 @@
 package com.solal.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,9 +19,8 @@ public class Mechanic {
 	private String name;
 	@Column(name = "password")
 	private String password;
-	@OneToOne
-	@JoinColumn(name = "work_card_id")
-	private WorkCard workCard;
+	@Column(name = "work_card_id")
+	private long workCardId;
 
 	public Mechanic() {
 
@@ -55,20 +50,16 @@ public class Mechanic {
 		this.password = password;
 	}
 
-	public WorkCard getWorkCard() {
-		return workCard;
+	public long getWorkCardId() {
+		return workCardId;
 	}
 
-	public void setWorkCard(WorkCard workCard) {
-		this.workCard = workCard;
+	public void setWorkCardId(long workCardId) {
+		this.workCardId = workCardId;
 	}
 
 	@Override
 	public String toString() {
-		return "Mechanic [id=" + id + ", name=" + name + ", password=" + password + ", workCard=" + workCard + "]";
-	}
-
-	public void addPartsToWorkCard(List<Part> parts) {
-		workCard.setParts(parts);
+		return "Mechanic [id=" + id + ", name=" + name + ", password=" + password + ", workCardId=" + workCardId + "]";
 	}
 }

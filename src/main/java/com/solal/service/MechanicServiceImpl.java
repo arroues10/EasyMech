@@ -37,7 +37,7 @@ public class MechanicServiceImpl implements MechanicService {
 
 	public List<Part> addParts(List<Part> parts) {
 		for (Part part : parts) {
-			part.setWorkCard(workCardRepository.findById(getMechanic().getWorkCard().getId()).orElse(null));
+			part.setWorkCard(workCardRepository.findById(getMechanic().getWorkCardId()).orElse(null));
 			part.setId(0);
 			partRepository.save(part);
 		}
