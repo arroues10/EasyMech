@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.solal.entity.Part;
@@ -42,6 +43,18 @@ public class MechanicController {
 		MechanicService service = (MechanicService) session.getService();
 		service.addParts(parts);
 		return ResponseEntity.ok(parts);
+	}
+
+	@PostMapping("/mechanics/setWorkCard/{token}")
+	public ResponseEntity<String> setWorkCard(@PathVariable String token, @RequestParam String plateNumber)
+			throws InvalidTokenException {
+		ClientSession session = getSession(token);
+		if (session == null) {
+			throw new InvalidTokenException("Invalid token");
+		}
+		MechanicService service = (MechanicService) session.getService();
+		service.setWorkCard(plateNumber);
+		return ResponseEntity.ok(plateNumber);
 	}
 
 }

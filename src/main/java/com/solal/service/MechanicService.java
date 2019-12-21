@@ -8,4 +8,6 @@ public interface MechanicService extends Service {
 
 	List<Part> addParts(List<Part> parts);
 
+	void setWorkCard(String plateNumber);
+
 }

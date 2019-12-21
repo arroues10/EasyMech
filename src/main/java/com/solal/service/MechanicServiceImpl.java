@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.solal.entity.Mechanic;
 import com.solal.entity.Part;
+import com.solal.entity.WorkCard;
 import com.solal.repository.MechanicRepository;
 import com.solal.repository.PartRepository;
 import com.solal.repository.WorkCardRepository;
@@ -42,6 +43,19 @@ public class MechanicServiceImpl implements MechanicService {
 			partRepository.save(part);
 		}
 		return parts;
+	}
+
+	@Override
+	public void setWorkCard(String plateNumber) {
+		Mechanic mechanic = getMechanic();
+		mechanic.setWorkCardId(addWorkCard(plateNumber).getId());
+		mechanicRepository.save(mechanic);
+	}
+
+	private WorkCard addWorkCard(String plateNumber) {
+		WorkCard workCard = new WorkCard(plateNumber);
+		workCardRepository.save(workCard);
+		return workCardRepository.findByPlateNumber(plateNumber).orElse(null);
 	}
 
 }
