@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.solal.entity.Part;
+import com.solal.entity.WorkCard;
 import com.solal.rest.ClientSession;
 import com.solal.rest.ex.InvalidTokenException;
 import com.solal.service.StoreKeeperService;
@@ -46,6 +47,21 @@ public class StoreKeeperController {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(allWorkCardParts);
+	}
+
+	@GetMapping("/storeKeepers/allWorkCards/{token}")
+	public ResponseEntity<List<WorkCard>> getAllWorkCards(@PathVariable String token) throws InvalidTokenException {
+		ClientSession session = getSession(token);
+		if (session == null) {
+			throw new InvalidTokenException("Invalid token");
+		}
+		StoreKeeperService service = (StoreKeeperService) session.getService();
+		final List<WorkCard> allWorkCards = service.getAllWorkCards();
+
+		if (allWorkCards.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(allWorkCards);
 	}
 
 	@GetMapping("/storeKeepers/allParts/{token}")
