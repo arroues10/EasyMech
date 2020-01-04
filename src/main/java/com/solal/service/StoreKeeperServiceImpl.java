@@ -43,4 +43,18 @@ public class StoreKeeperServiceImpl implements StoreKeeperService {
 		return workCardRepository.findAll();
 	}
 
+	@Override
+	public Part setPrices(long partId, long originalPrice, long replacementPrice) {
+		Part part = partRepository.findById(partId).orElse(null);
+
+		part.setOriginalPrice(originalPrice);
+		part.setReplacementPrice(replacementPrice);
+		return partRepository.save(part);
+	}
+
+	@Override
+	public Part getPart(long id) {
+		return partRepository.findById(id).orElse(null);
+	}
+
 }

@@ -48,8 +48,22 @@ public class MechanicServiceImpl implements MechanicService {
 	@Override
 	public void setWorkCard(String plateNumber) {
 		Mechanic mechanic = getMechanic();
-		mechanic.setWorkCardId(addWorkCard(plateNumber).getId());
-		mechanicRepository.save(mechanic);
+
+		if (workCardIsExist(plateNumber)) {
+			mechanic.setWorkCardId(workCardRepository.findByPlateNumber(plateNumber).orElse(null).getId());
+			mechanicRepository.save(mechanic);
+		} else {
+			mechanic.setWorkCardId(addWorkCard(plateNumber).getId());
+			mechanicRepository.save(mechanic);
+		}
+	}
+
+	private boolean workCardIsExist(String plateNumber) {
+		WorkCard workCard = workCardRepository.findByPlateNumber(plateNumber).orElse(null);
+		if (workCard != null) {
+			return true;
+		}
+		return false;
 	}
 
 	private WorkCard addWorkCard(String plateNumber) {

@@ -13,4 +13,8 @@ public interface StoreKeeperService extends Service {
 
 	List<WorkCard> getAllWorkCards();
 
+	Part setPrices(long partId, long originalPrice, long replacementPrice);
+
+	Part getPart(long id);
+
 }

@@ -22,6 +22,10 @@ public class Part {
 	private long id;
 	@Column(name = "name")
 	private String name;
+	@Column(name = "originalPrice")
+	private long originalPrice;
+	@Column(name = "replacementPrice")
+	private long replacementPrice;
 
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(name = "work_card_id")
@@ -34,6 +38,8 @@ public class Part {
 	public Part(String name) {
 		this();
 		this.name = name;
+		this.originalPrice = 0;
+		this.replacementPrice = 0;
 	}
 
 	public long getId() {
@@ -52,6 +58,22 @@ public class Part {
 		this.name = name;
 	}
 
+	public long getOriginalPrice() {
+		return originalPrice;
+	}
+
+	public void setOriginalPrice(long originalPrice) {
+		this.originalPrice = originalPrice;
+	}
+
+	public long getReplacementPrice() {
+		return replacementPrice;
+	}
+
+	public void setReplacementPrice(long replacementPrice) {
+		this.replacementPrice = replacementPrice;
+	}
+
 	public WorkCard getWorkCard() {
 		return workCard;
 	}
@@ -63,6 +85,8 @@ public class Part {
 
 	@Override
 	public String toString() {
-		return "Part [id=" + id + ", name=" + name + ", workCard=" + workCard + "]";
+		return "Part [id=" + id + ", name=" + name + ", originalPrice=" + originalPrice + ", replacementPrice="
+				+ replacementPrice + ", workCard=" + workCard + "]";
 	}
+
 }

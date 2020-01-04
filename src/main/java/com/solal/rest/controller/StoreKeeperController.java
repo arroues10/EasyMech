@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,6 +78,30 @@ public class StoreKeeperController {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(allParts);
+	}
+
+	@GetMapping("/storeKeepers/parts/{token}")
+	public ResponseEntity<Part> getPart(@PathVariable String token, @RequestParam long id)
+			throws InvalidTokenException {
+		ClientSession session = getSession(token);
+		if (session == null) {
+			throw new InvalidTokenException("Invalid token");
+		}
+		StoreKeeperService service = (StoreKeeperService) session.getService();
+		return ResponseEntity.ok(service.getPart(id));
+	}
+
+	@PostMapping("/storeKeepers/setPrices/{token}")
+	public ResponseEntity<Part> setPrices(@PathVariable String token, @RequestParam long partId,
+			@RequestParam long originalPrice, @RequestParam long replacementPrice) throws InvalidTokenException {
+		ClientSession session = getSession(token);
+		if (session == null) {
+			throw new InvalidTokenException("Invalid token");
+		}
+		StoreKeeperService service = (StoreKeeperService) session.getService();
+		final Part part = service.setPrices(partId, originalPrice, replacementPrice);
+
+		return ResponseEntity.ok(part);
 	}
 
 }

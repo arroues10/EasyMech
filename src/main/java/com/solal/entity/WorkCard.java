@@ -24,7 +24,7 @@ public class WorkCard {
 	@Column(name = "plateNumber")
 	private String plateNumber;
 
-	@OneToMany(mappedBy = "workCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "workCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Part> parts;
 
 	public WorkCard() {
