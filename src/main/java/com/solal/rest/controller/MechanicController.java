@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.solal.entity.Part;
 import com.solal.rest.ClientSession;
 import com.solal.rest.ex.InvalidTokenException;
+import com.solal.rest.ex.WorkCardNotExistsException;
 import com.solal.service.MechanicService;
 
 @RestController
@@ -47,7 +48,7 @@ public class MechanicController {
 
 	@PostMapping("/mechanics/setWorkCard/{token}")
 	public ResponseEntity<String> setWorkCard(@PathVariable String token, @RequestParam String plateNumber)
-			throws InvalidTokenException {
+			throws InvalidTokenException, WorkCardNotExistsException {
 		ClientSession session = getSession(token);
 		if (session == null) {
 			throw new InvalidTokenException("Invalid token");

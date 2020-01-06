@@ -1,13 +1,22 @@
 package com.solal.rest.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.solal.entity.Mechanic;
+import com.solal.entity.WorkCard;
 import com.solal.rest.ClientSession;
+import com.solal.rest.ex.InvalidTokenException;
+import com.solal.service.ManagerService;
 
 @RestController
 @RequestMapping("/api")
@@ -34,6 +43,37 @@ public class ManagerController {
 	 */
 	private ClientSession getSession(String token) {
 		return tokensMap.get(token);
+	}
+
+	@GetMapping("/managers/allMechanics/{token}")
+	public ResponseEntity<List<Mechanic>> getAllMechanics(@PathVariable String token) throws InvalidTokenException {
+		ClientSession session = getSession(token);
+		if (session == null) {
+			throw new InvalidTokenException("Invalid token");
+		}
+		ManagerService service = (ManagerService) session.getService();
+		final List<Mechanic> allMechanics = service.getAllMechanics();
+
+		if (allMechanics.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(allMechanics);
+	}
+
+	@GetMapping("/managers/getWorkCardById/{token}")
+	public ResponseEntity<WorkCard> getWorkCardById(@PathVariable String token, @RequestParam long id)
+			throws InvalidTokenException {
+		ClientSession session = getSession(token);
+		if (session == null) {
+			throw new InvalidTokenException("Invalid token");
+		}
+		ManagerService service = (ManagerService) session.getService();
+		final WorkCard workCard = service.getWorkCardById(id);
+
+		if (workCard == null) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(workCard);
 	}
 
 }

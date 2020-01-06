@@ -1,11 +1,20 @@
 package com.solal.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "mechanic")
@@ -19,11 +28,23 @@ public class Mechanic {
 	private String name;
 	@Column(name = "password")
 	private String password;
-	@Column(name = "work_card_id")
-	private long workCardId;
+
+	@JsonProperty("work_card_plate_number")
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "plateNumber")
+	@JsonIdentityReference(alwaysAsId = true)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "work_card_id")
+	private WorkCard workCard;
 
 	public Mechanic() {
 
+	}
+
+	public Mechanic(long id, String name, String password) {
+		this();
+		this.id = id;
+		this.name = name;
+		this.password = password;
 	}
 
 	public long getId() {
@@ -50,16 +71,17 @@ public class Mechanic {
 		this.password = password;
 	}
 
-	public long getWorkCardId() {
-		return workCardId;
+	@JsonIgnore
+	public WorkCard getWorkCard() {
+		return workCard;
 	}
 
-	public void setWorkCardId(long workCardId) {
-		this.workCardId = workCardId;
+	public void setWorkCard(WorkCard workCard) {
+		this.workCard = workCard;
 	}
 
 	@Override
 	public String toString() {
-		return "Mechanic [id=" + id + ", name=" + name + ", password=" + password + ", workCardId=" + workCardId + "]";
+		return "Mechanic [id=" + id + ", name=" + name + ", password=" + password + ", workCard=" + workCard + "]";
 	}
 }

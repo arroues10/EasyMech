@@ -11,6 +11,7 @@ import com.solal.entity.WorkCard;
 import com.solal.repository.MechanicRepository;
 import com.solal.repository.PartRepository;
 import com.solal.repository.WorkCardRepository;
+import com.solal.rest.ex.WorkCardNotExistsException;
 
 @Service
 public class MechanicServiceImpl implements MechanicService {
@@ -24,6 +25,10 @@ public class MechanicServiceImpl implements MechanicService {
 		this.mechanicId = mechanicId;
 	}
 
+	public Mechanic getMechanic() {
+		return mechanicRepository.findById(mechanicId).orElse(null);
+	}
+
 	@Autowired
 	public MechanicServiceImpl(MechanicRepository mechanicRepository, WorkCardRepository workCardRepository,
 			PartRepository partRepository) {
@@ -32,13 +37,9 @@ public class MechanicServiceImpl implements MechanicService {
 		this.partRepository = partRepository;
 	}
 
-	public Mechanic getMechanic() {
-		return mechanicRepository.findById(mechanicId).orElse(null);
-	}
-
 	public List<Part> addParts(List<Part> parts) {
 		for (Part part : parts) {
-			part.setWorkCard(workCardRepository.findById(getMechanic().getWorkCardId()).orElse(null));
+			part.setWorkCard(getMechanic().getWorkCard());
 			part.setId(0);
 			partRepository.save(part);
 		}
@@ -46,30 +47,21 @@ public class MechanicServiceImpl implements MechanicService {
 	}
 
 	@Override
-	public void setWorkCard(String plateNumber) {
+	public WorkCard setWorkCard(String plateNumber) throws WorkCardNotExistsException {
+		if (!workCardIsExists(plateNumber)) {
+			throw new WorkCardNotExistsException("This work card is not exists");
+		}
 		Mechanic mechanic = getMechanic();
-
-		if (workCardIsExist(plateNumber)) {
-			mechanic.setWorkCardId(workCardRepository.findByPlateNumber(plateNumber).orElse(null).getId());
-			mechanicRepository.save(mechanic);
-		} else {
-			mechanic.setWorkCardId(addWorkCard(plateNumber).getId());
-			mechanicRepository.save(mechanic);
-		}
-	}
-
-	private boolean workCardIsExist(String plateNumber) {
 		WorkCard workCard = workCardRepository.findByPlateNumber(plateNumber).orElse(null);
-		if (workCard != null) {
-			return true;
-		}
-		return false;
+
+		mechanic.setWorkCard(workCard);
+		mechanicRepository.save(mechanic);
+
+		return workCard;
 	}
 
-	private WorkCard addWorkCard(String plateNumber) {
-		WorkCard workCard = new WorkCard(plateNumber);
-		workCardRepository.save(workCard);
-		return workCardRepository.findByPlateNumber(plateNumber).orElse(null);
+	private boolean workCardIsExists(String plateNumber) {
+		final WorkCard workCard = workCardRepository.findByPlateNumber(plateNumber).orElse(null);
+		return workCard != null;
 	}
-
 }

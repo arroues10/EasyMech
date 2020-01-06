@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +24,9 @@ public class WorkCard {
 	private long id;
 	@Column(name = "plateNumber")
 	private String plateNumber;
+
+	@OneToOne(mappedBy = "workCard", cascade = CascadeType.ALL)
+	private Mechanic mechanic;
 
 	@OneToMany(mappedBy = "workCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Part> parts;
@@ -58,6 +62,14 @@ public class WorkCard {
 
 	public void setParts(List<Part> parts) {
 		this.parts = parts;
+	}
+
+	public Mechanic getMechanic() {
+		return mechanic;
+	}
+
+	public void setMechanic(Mechanic mechanic) {
+		this.mechanic = mechanic;
 	}
 
 	@Override
