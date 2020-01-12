@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "storekeeper")
-public class Storekeeper {
+@Table(name = "advisor")
+public class Advisor {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +22,11 @@ public class Storekeeper {
 	@Column(name = "garage_code")
 	private String garageCode;
 
-	public Storekeeper() {
+	public Advisor() {
 	}
 
-	public Storekeeper(long id, String name, String password, String garageCode) {
+	public Advisor(long id, String name, String password, String garageCode) {
+		this();
 		this.id = id;
 		this.name = name;
 		this.password = password;
@@ -60,14 +61,13 @@ public class Storekeeper {
 		return garageCode;
 	}
 
-	public void setGarageCode(String garageCode) {
+	public void setGarageNumber(String garageCode) {
 		this.garageCode = garageCode;
 	}
 
 	@Override
 	public String toString() {
-		return "Storekeeper [id=" + id + ", name=" + name + ", password=" + password + ", garageCode=" + garageCode
-				+ "]";
+		return "Manager [id=" + id + ", name=" + name + ", password=" + password + ", garageNumber=" + garageCode + "]";
 	}
 
 }

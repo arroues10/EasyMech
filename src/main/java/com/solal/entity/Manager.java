@@ -1,18 +1,16 @@
 package com.solal.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "manager")
 public class Manager {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -21,11 +19,18 @@ public class Manager {
 	private String name;
 	@Column(name = "password")
 	private String password;
-	@OneToMany
-	private List<Mechanic> mechanics;
-	
+	@Column(name = "garage_code")
+	private String garageCode;
+
 	public Manager() {
-		
+	}
+
+	public Manager(long id, String name, String password, String garageCode) {
+		this();
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.garageCode = garageCode;
 	}
 
 	public long getId() {
@@ -52,17 +57,17 @@ public class Manager {
 		this.password = password;
 	}
 
-	public List<Mechanic> getMechanics() {
-		return mechanics;
+	public String getGarageCode() {
+		return garageCode;
 	}
 
-	public void setMechanics(List<Mechanic> mechanics) {
-		this.mechanics = mechanics;
+	public void setGarageNumber(String garageCode) {
+		this.garageCode = garageCode;
 	}
 
 	@Override
 	public String toString() {
-		return "Manager [id=" + id + ", name=" + name + ", password=" + password + ", mechanics=" + mechanics + "]";
+		return "Manager [id=" + id + ", name=" + name + ", password=" + password + ", garageNumber=" + garageCode
+				+ "]";
 	}
-
 }

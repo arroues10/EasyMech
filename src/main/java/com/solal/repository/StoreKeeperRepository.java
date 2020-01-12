@@ -8,5 +8,5 @@ import com.solal.entity.Storekeeper;
 @Repository
 public interface StoreKeeperRepository extends JpaRepository<Storekeeper, Long> {
 
-	Storekeeper findByNameAndPassword(String name, String password);
+	Storekeeper findByNameAndPasswordAndGarageCode(String name, String password, String garageCode);
 }

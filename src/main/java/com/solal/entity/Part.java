@@ -26,9 +26,9 @@ public class Part {
 	private long id;
 	@Column(name = "name")
 	private String name;
-	@Column(name = "originalPrice")
+	@Column(name = "original_price")
 	private long originalPrice;
-	@Column(name = "replacementPrice")
+	@Column(name = "replacement_price")
 	private long replacementPrice;
 
 	@JsonProperty("work_card_id")

@@ -15,15 +15,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "workCard")
+@Table(name = "work_card")
 public class WorkCard {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
-	@Column(name = "plateNumber")
+	@Column(name = "plate_number")
 	private String plateNumber;
+	@Column(name = "garage_code")
+	private String garageCode;
 
 	@OneToOne(mappedBy = "workCard", cascade = CascadeType.ALL)
 	private Mechanic mechanic;
@@ -35,9 +37,13 @@ public class WorkCard {
 		parts = new ArrayList<>();
 	}
 
-	public WorkCard(String plateNumber) {
+	public WorkCard(long id, String plateNumber, String garageCode, Mechanic mechanic, List<Part> parts) {
 		this();
+		this.id = id;
 		this.plateNumber = plateNumber;
+		this.garageCode = garageCode;
+		this.mechanic = mechanic;
+		this.parts = parts;
 	}
 
 	public long getId() {
@@ -54,6 +60,14 @@ public class WorkCard {
 
 	public void setPlateNumber(String plateNumber) {
 		this.plateNumber = plateNumber;
+	}
+
+	public String getGarageCode() {
+		return garageCode;
+	}
+
+	public void setGarageCode(String garageCode) {
+		this.garageCode = garageCode;
 	}
 
 	public List<Part> getParts() {
@@ -74,6 +88,8 @@ public class WorkCard {
 
 	@Override
 	public String toString() {
-		return "WorkCard [id=" + id + ", plateNumber=" + plateNumber + ", parts=" + parts + "]";
+		return "WorkCard [id=" + id + ", plateNumber=" + plateNumber + ", garageCode=" + garageCode + ", mechanic="
+				+ mechanic + ", parts=" + parts + "]";
 	}
+
 }

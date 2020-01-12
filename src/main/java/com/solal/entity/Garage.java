@@ -1,15 +1,11 @@
 package com.solal.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "storekeeper")
-public class Storekeeper {
+public class Garage {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,18 +13,16 @@ public class Storekeeper {
 	private long id;
 	@Column(name = "name")
 	private String name;
-	@Column(name = "password")
-	private String password;
 	@Column(name = "garage_code")
 	private String garageCode;
 
-	public Storekeeper() {
+	public Garage() {
 	}
 
-	public Storekeeper(long id, String name, String password, String garageCode) {
+	public Garage(long id, String name, String garageCode) {
+		this();
 		this.id = id;
 		this.name = name;
-		this.password = password;
 		this.garageCode = garageCode;
 	}
 
@@ -48,14 +42,6 @@ public class Storekeeper {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getGarageCode() {
 		return garageCode;
 	}
@@ -66,8 +52,6 @@ public class Storekeeper {
 
 	@Override
 	public String toString() {
-		return "Storekeeper [id=" + id + ", name=" + name + ", password=" + password + ", garageCode=" + garageCode
-				+ "]";
+		return "Garage [id=" + id + ", name=" + name + ", garageCode=" + garageCode + "]";
 	}
-
 }

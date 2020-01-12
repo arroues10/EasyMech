@@ -28,6 +28,8 @@ public class Mechanic {
 	private String name;
 	@Column(name = "password")
 	private String password;
+	@Column(name = "garage_code")
+	private String garageCode;
 
 	@JsonProperty("work_card_plate_number")
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "plateNumber")
@@ -37,14 +39,14 @@ public class Mechanic {
 	private WorkCard workCard;
 
 	public Mechanic() {
-
 	}
 
-	public Mechanic(long id, String name, String password) {
+	public Mechanic(long id, String name, String password, String garageCode) {
 		this();
 		this.id = id;
 		this.name = name;
 		this.password = password;
+		this.garageCode = garageCode;
 	}
 
 	public long getId() {
@@ -71,6 +73,14 @@ public class Mechanic {
 		this.password = password;
 	}
 
+	public String getGarageCode() {
+		return garageCode;
+	}
+
+	public void setGarageCode(String garageCode) {
+		this.garageCode = garageCode;
+	}
+
 	@JsonIgnore
 	public WorkCard getWorkCard() {
 		return workCard;
@@ -82,6 +92,8 @@ public class Mechanic {
 
 	@Override
 	public String toString() {
-		return "Mechanic [id=" + id + ", name=" + name + ", password=" + password + ", workCard=" + workCard + "]";
+		return "Mechanic [id=" + id + ", name=" + name + ", password=" + password + ", garageCode=" + garageCode
+				+ ", workCard=" + workCard + "]";
 	}
+
 }

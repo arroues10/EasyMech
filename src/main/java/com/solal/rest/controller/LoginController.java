@@ -44,8 +44,8 @@ public class LoginController {
 	 */
 	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestParam String name, @RequestParam String password,
-			@RequestParam String loginType) throws InvalidLoginException {
-		ClientSession session = loginSystem.login(name, password, loginType);
+			@RequestParam String loginType, @RequestParam String garageCode) throws InvalidLoginException {
+		ClientSession session = loginSystem.login(name, password, loginType, garageCode);
 		String token = generateToken();
 
 		tokensMap.put(token, session);

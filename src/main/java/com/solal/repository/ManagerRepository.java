@@ -6,5 +6,5 @@ import com.solal.entity.Manager;
 
 public interface ManagerRepository extends JpaRepository<Manager, Long> {
 
-	Manager findByNameAndPassword(String name, String password);
+	Manager findByNameAndPasswordAndGarageCode(String name, String password, String garageCode);
 }
