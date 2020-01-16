@@ -31,9 +31,6 @@ public class Part {
 	@Column(name = "replacement_price")
 	private long replacementPrice;
 
-	@JsonProperty("work_card_id")
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@JsonIdentityReference(alwaysAsId = true)
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(name = "work_card_id")
 	private WorkCard workCard;
