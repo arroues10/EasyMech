@@ -1,12 +1,17 @@
 package com.solal.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -35,10 +40,14 @@ public class Mechanic {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "plateNumber")
 	@JsonIdentityReference(alwaysAsId = true)
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "work_card_id")
+	@JoinColumn(name = "actually_work_card_id")
 	private WorkCard workCard;
 
+	@OneToMany(mappedBy = "endWorkMechanic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<WorkCard> endWorkCards;
+
 	public Mechanic() {
+		endWorkCards = new ArrayList<>();
 	}
 
 	public Mechanic(long id, String name, String password, String garageCode) {
@@ -90,10 +99,17 @@ public class Mechanic {
 		this.workCard = workCard;
 	}
 
+	public List<WorkCard> getEndWorkCards() {
+		return endWorkCards;
+	}
+
+	public void setEndWorkCards(List<WorkCard> endWorkCards) {
+		this.endWorkCards = endWorkCards;
+	}
+
 	@Override
 	public String toString() {
 		return "Mechanic [id=" + id + ", name=" + name + ", password=" + password + ", garageCode=" + garageCode
-				+ ", workCard=" + workCard + "]";
+				+ ", workCard=" + workCard + ", endWorkCards=" + endWorkCards + "]";
 	}
-
 }
