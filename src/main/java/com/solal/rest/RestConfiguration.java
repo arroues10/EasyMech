@@ -33,6 +33,7 @@ public class RestConfiguration {
 				registry.addMapping("/**").allowedOrigins("http://localhost:8100", "http://localhost:4200",
 						"https://fathomless-lake-33535.herokuapp.com").allowedMethods("*");
 			}
+			
 		};
 	}
 }
