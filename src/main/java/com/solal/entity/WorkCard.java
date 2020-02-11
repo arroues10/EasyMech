@@ -34,12 +34,14 @@ public class WorkCard {
 	private long endWork;
 	@Column(name = "garage_code")
 	private String garageCode;
+	@Column(name = "description")
+	private String description;
 
 	@OneToOne(mappedBy = "workCard", cascade = CascadeType.ALL)
 	private Mechanic mechanic;
 
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
-	@JoinColumn(name = "mechanic_end_work_id") 
+	@JoinColumn(name = "mechanic_end_work_id")
 	private Mechanic endWorkMechanic;
 
 	@OneToMany(mappedBy = "workCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -49,13 +51,14 @@ public class WorkCard {
 		parts = new ArrayList<>();
 	}
 
-	public WorkCard(long id, String plateNumber, String garageCode, long startWork, long endWork) {
+	public WorkCard(long id, String plateNumber, String garageCode, long startWork, long endWork, String description) {
 		this();
 		this.id = id;
 		this.plateNumber = plateNumber;
 		this.garageCode = garageCode;
 		this.startWork = startWork;
 		this.endWork = endWork;
+		this.description = description;
 	}
 
 	public long getId() {
@@ -125,10 +128,18 @@ public class WorkCard {
 		this.endWorkMechanic = endWorkMechanic;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public String toString() {
 		return "WorkCard [id=" + id + ", plateNumber=" + plateNumber + ", startWork=" + startWork + ", endWork="
-				+ endWork + ", garageCode=" + garageCode + ", mechanic=" + mechanic + ", endWorkMechanic="
-				+ endWorkMechanic + ", parts=" + parts + "]";
+				+ endWork + ", garageCode=" + garageCode + ", description=" + description + ", mechanic=" + mechanic
+				+ ", endWorkMechanic=" + endWorkMechanic + ", parts=" + parts + "]";
 	}
 }
