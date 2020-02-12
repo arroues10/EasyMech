@@ -92,6 +92,7 @@ public class MechanicController {
 		}
 		MechanicService service = (MechanicService) session.getService();
 		return ResponseEntity.ok(service.getEndWorkCards());
+		
 	}
 
 }
