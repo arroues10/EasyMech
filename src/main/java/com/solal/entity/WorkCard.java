@@ -40,7 +40,7 @@ public class WorkCard {
 	@OneToOne(mappedBy = "workCard", cascade = CascadeType.ALL)
 	private Mechanic mechanic;
 
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "mechanic_end_work_id")
 	private Mechanic endWorkMechanic;
 
@@ -49,6 +49,7 @@ public class WorkCard {
 
 	public WorkCard() {
 		parts = new ArrayList<>();
+		endWorkMechanic = new Mechanic();
 	}
 
 	public WorkCard(long id, String plateNumber, String garageCode, long startWork, long endWork, String description) {
