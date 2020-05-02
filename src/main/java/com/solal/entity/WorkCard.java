@@ -49,7 +49,6 @@ public class WorkCard {
 
 	public WorkCard() {
 		parts = new ArrayList<>();
-		endWorkMechanic = new Mechanic();
 	}
 
 	public WorkCard(long id, String plateNumber, String garageCode, long startWork, long endWork, String description) {
