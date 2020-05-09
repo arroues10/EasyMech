@@ -15,8 +15,6 @@ public interface MechanicService extends Service {
 
 	String setEndWork();
 
-	WorkCard addToEndWorkCards();
-
 	List<WorkCard> getEndWorkCards();
 
 }

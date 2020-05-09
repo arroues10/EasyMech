@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -40,16 +38,11 @@ public class WorkCard {
 	@OneToOne(mappedBy = "workCard", cascade = CascadeType.ALL)
 	private Mechanic mechanic;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "mechanic_end_work_id")
-	private Mechanic endWorkMechanic;
-
 	@OneToMany(mappedBy = "workCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Part> parts;
 
 	public WorkCard() {
 		parts = new ArrayList<>();
-		endWorkMechanic = new Mechanic();
 	}
 
 	public WorkCard(long id, String plateNumber, String garageCode, long startWork, long endWork, String description) {
@@ -120,15 +113,6 @@ public class WorkCard {
 		this.mechanic = mechanic;
 	}
 
-	public Mechanic getEndWorkMechanic() {
-		return endWorkMechanic;
-	}
-
-	@JsonIgnore
-	public void setEndWorkMechanic(Mechanic endWorkMechanic) {
-		this.endWorkMechanic = endWorkMechanic;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -141,6 +125,6 @@ public class WorkCard {
 	public String toString() {
 		return "WorkCard [id=" + id + ", plateNumber=" + plateNumber + ", startWork=" + startWork + ", endWork="
 				+ endWork + ", garageCode=" + garageCode + ", description=" + description + ", mechanic=" + mechanic
-				+ ", endWorkMechanic=" + endWorkMechanic + ", parts=" + parts + "]";
+				+ ", endWorkMechanic=" + ", parts=" + parts + "]";
 	}
 }

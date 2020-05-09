@@ -72,17 +72,6 @@ public class MechanicController {
 		return ResponseEntity.ok(service.setEndWork());
 	}
 
-	@PostMapping("/mechanics/addToEndWorkCards/{token}")
-	public ResponseEntity<WorkCard> addToEndWorkCards(@PathVariable String token)
-			throws InvalidTokenException, WorkCardNotExistsException {
-		ClientSession session = getSession(token);
-		if (session == null) {
-			throw new InvalidTokenException("Invalid token");
-		}
-		MechanicService service = (MechanicService) session.getService();
-		return ResponseEntity.ok(service.addToEndWorkCards());
-	}
-
 	@GetMapping("/mechanics/getEndWorkCards/{token}")
 	public ResponseEntity<List<WorkCard>> getEndWorkCards(@PathVariable String token)
 			throws InvalidTokenException, WorkCardNotExistsException {

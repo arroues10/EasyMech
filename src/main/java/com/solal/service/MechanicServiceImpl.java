@@ -79,14 +79,6 @@ public class MechanicServiceImpl implements MechanicService {
 	}
 
 	@Override
-	public WorkCard addToEndWorkCards() {
-		final WorkCard workCard = getMechanic().getWorkCard();
-		workCard.setEndWorkMechanic
-		(getMechanic());
-		return workCardRepository.save(workCard);
-	}
-
-	@Override
 	public List<WorkCard> getEndWorkCards() {
 		return getMechanic().getEndWorkCards();
 	}
@@ -110,5 +102,4 @@ public class MechanicServiceImpl implements MechanicService {
 	private boolean theWorkIsFinished(WorkCard workCard) {
 		return workCard.getEndWork() != 0;
 	}
-
 }
