@@ -31,7 +31,7 @@ public class RestConfiguration {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("http://localhost:8100", "http://localhost:4200",
-						"https://easymechfe.herokuapp.com/home").allowedMethods("*");
+						"https://easymechfe.herokuapp.com").allowedMethods("*");
 			}
 
 		};
