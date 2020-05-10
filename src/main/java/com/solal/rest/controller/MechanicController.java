@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.solal.entity.Part;
-import com.solal.entity.WorkCard;
 import com.solal.rest.ClientSession;
 import com.solal.rest.ex.InvalidTokenException;
 import com.solal.rest.ex.TheWorkIsFinishedException;
@@ -70,18 +68,6 @@ public class MechanicController {
 		}
 		MechanicService service = (MechanicService) session.getService();
 		return ResponseEntity.ok(service.setEndWork());
-	}
-
-	@GetMapping("/mechanics/getEndWorkCards/{token}")
-	public ResponseEntity<List<WorkCard>> getEndWorkCards(@PathVariable String token)
-			throws InvalidTokenException, WorkCardNotExistsException {
-		ClientSession session = getSession(token);
-		if (session == null) {
-			throw new InvalidTokenException("Invalid token");
-		}
-		MechanicService service = (MechanicService) session.getService();
-		return ResponseEntity.ok(service.getEndWorkCards());
-
 	}
 
 }

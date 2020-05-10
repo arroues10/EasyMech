@@ -78,11 +78,6 @@ public class MechanicServiceImpl implements MechanicService {
 		return "Work finished on " + plateNumber;
 	}
 
-	@Override
-	public List<WorkCard> getEndWorkCards() {
-		return getMechanic().getEndWorkCards();
-	}
-
 	private void setStartWork(Mechanic mechanic) {
 		WorkCard workCard = mechanic.getWorkCard();
 		workCard.setStartWork(System.currentTimeMillis());
