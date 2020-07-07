@@ -38,7 +38,7 @@ public class WorkCard {
 	@OneToOne(mappedBy = "workCard", cascade = CascadeType.ALL)
 	private Mechanic mechanic;
 
-	@OneToMany(mappedBy = "workCard", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "workCard", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Part> parts;
 
 	public WorkCard() {
