@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -27,6 +28,7 @@ public class Part {
 	@Column(name = "replacement_price")
 	private long replacementPrice;
 
+	@JsonIdentityReference(alwaysAsId = true)
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(name = "work_card_id")
 	private WorkCard workCard;
