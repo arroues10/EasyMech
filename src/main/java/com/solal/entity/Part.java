@@ -37,7 +37,7 @@ public class Part {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "work_card_id")
 	private WorkCard workCard;
-
+ 
 	public Part() {
 
 	}
