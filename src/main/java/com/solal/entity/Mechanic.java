@@ -93,6 +93,6 @@ public class Mechanic {
 	@Override
 	public String toString() {
 		return "Mechanic [id=" + id + ", name=" + name + ", password=" + password + ", garageCode=" + garageCode
-				+ ", workCard=" + workCard + ", endWorkCards=" + "]";
+				+ ", workCard=" + workCard + "]";
 	}
 }

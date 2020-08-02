@@ -10,8 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "part")
@@ -28,8 +31,10 @@ public class Part {
 	@Column(name = "replacement_price")
 	private long replacementPrice;
 
+	@JsonProperty("work_card_plate_number")
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "plateNumber")
 	@JsonIdentityReference(alwaysAsId = true)
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "work_card_id")
 	private WorkCard workCard;
 
