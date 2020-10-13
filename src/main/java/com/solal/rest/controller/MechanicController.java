@@ -24,17 +24,39 @@ import com.solal.service.MechanicService;
 @RequestMapping("/api")
 public class MechanicController {
 
+	// Field
 	private Map<String, ClientSession> tokensMap;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param tokensMap
+	 */
 	@Autowired
 	public MechanicController(@Qualifier("tokens") Map<String, ClientSession> tokensMap) {
 		this.tokensMap = tokensMap;
 	}
 
+	/**
+	 * This function returns us the session which corresponds to the token received
+	 * 
+	 * @param token
+	 * @return ClientSession
+	 */
 	private ClientSession getSession(String token) {
 		return tokensMap.get(token);
 	}
 
+	/**
+	 * 
+	 * This function is a "post" type function which allows the mechanic to upload
+	 * the parts that must be replaced for his work card
+	 * 
+	 * @param token
+	 * @param List<Part> parts
+	 * @return ResponseEntity<List<Part>>
+	 * @throws InvalidTokenException
+	 */
 	@PostMapping("/mechanics/parts/{token}")
 	public ResponseEntity<List<Part>> addParts(@PathVariable String token, @RequestBody List<Part> parts)
 			throws InvalidTokenException {
@@ -47,6 +69,19 @@ public class MechanicController {
 		return ResponseEntity.ok(parts);
 	}
 
+	/**
+	 * This function is a "post" type function which allows the mechanic to start
+	 * working on the work card given as a parameter
+	 * 
+	 * @param token
+	 * @param plateNumber - string
+	 * @return ResponseEntity<String> - the plate number
+	 * @throws InvalidTokenException
+	 * @throws WorkCardNotExistsException - the plate number in parameter is not
+	 *                                    entered in the database
+	 * @throws TheWorkIsFinishedException - if the job on the work card has already
+	 *                                    been completed before
+	 */
 	@PostMapping("/mechanics/setWorkCard/{token}")
 	public ResponseEntity<String> setWorkCard(@PathVariable String token, @RequestParam String plateNumber)
 			throws InvalidTokenException, WorkCardNotExistsException, TheWorkIsFinishedException {
@@ -59,6 +94,16 @@ public class MechanicController {
 		return ResponseEntity.ok(plateNumber);
 	}
 
+	/**
+	 * This function when called fixes the moment when the job has been finished on
+	 * the work card
+	 * 
+	 * @param token
+	 * @return ResponseEntity<String> - "Work finished on " + plateNumber
+	 * @throws InvalidTokenException
+	 * @throws WorkCardNotExistsException - the plate number in parameter is not
+	 *                                    entered in the database
+	 */
 	@PostMapping("/mechanics/setEndWork/{token}")
 	public ResponseEntity<String> setEndWork(@PathVariable String token)
 			throws InvalidTokenException, WorkCardNotExistsException {

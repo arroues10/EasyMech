@@ -47,6 +47,13 @@ public class AdvisorController {
 		return tokensMap.get(token);
 	}
 
+	/**
+	 * This function returns us the list of all the work cards of the system
+	 * 
+	 * @param token
+	 * @return ResponseEntity<List<WorkCard>>
+	 * @throws InvalidTokenException
+	 */
 	@GetMapping("/advisors/allWorkCards/{token}")
 	public ResponseEntity<List<WorkCard>> getAllWorkCards(@PathVariable String token) throws InvalidTokenException {
 		ClientSession session = getSession(token);
@@ -62,6 +69,15 @@ public class AdvisorController {
 		return ResponseEntity.ok(allWorkCards);
 	}
 
+	/**
+	 * This function returns us the list of all the parts to be replaced belonging
+	 * to the work card given as a parameter
+	 * 
+	 * @param token
+	 * @param workCardId
+	 * @return ResponseEntity<List<Part>>
+	 * @throws InvalidTokenException
+	 */
 	@GetMapping("/advisors/allWorkCardParts/{token}")
 	public ResponseEntity<List<Part>> getAllWorkCardParts(@PathVariable String token, @RequestParam long workCardId)
 			throws InvalidTokenException {
@@ -78,6 +94,15 @@ public class AdvisorController {
 		return ResponseEntity.ok(allWorkCardParts);
 	}
 
+	/**
+	 * This function is a "post" type function which allows the advisor to upload a
+	 * new work card to the system
+	 * 
+	 * @param token
+	 * @param workCard
+	 * @return ResponseEntity<WorkCard>
+	 * @throws InvalidTokenException
+	 */
 	@PostMapping("/advisors/addWorkCard/{token}")
 	public ResponseEntity<WorkCard> addWorkCard(@PathVariable String token, @RequestBody WorkCard workCard)
 			throws InvalidTokenException {
@@ -86,7 +111,7 @@ public class AdvisorController {
 			throw new InvalidTokenException("Invalid token");
 		}
 		AdvisorService service = (AdvisorService) session.getService();
-		
+
 		return ResponseEntity.ok(service.addWorkCard(workCard));
 	}
 
