@@ -1,4 +1,4 @@
-package com.solal.rest.controller;
+package com.solal.controller;
 
 import java.util.Map;
 import java.util.UUID;
@@ -38,14 +38,13 @@ public class LoginController {
 	 * 
 	 * @param email
 	 * @param password
-	 * @param loginType
 	 * @return ResponseEntity<String> : Token
 	 * @throws InvalidLoginException : if the email or the password is invalids
 	 */
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestParam String name, @RequestParam String password,
-			@RequestParam String loginType, @RequestParam String garageCode) throws InvalidLoginException {
-		ClientSession session = loginSystem.login(name, password, loginType, garageCode);
+	public ResponseEntity<String> login(@RequestParam String name, @RequestParam String password)
+			throws InvalidLoginException {
+		ClientSession session = loginSystem.login(name, password);
 		String token = generateToken();
 
 		tokensMap.put(token, session);

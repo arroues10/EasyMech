@@ -8,5 +8,5 @@ import com.solal.entity.Mechanic;
 @Repository
 public interface MechanicRepository extends JpaRepository<Mechanic, Long> {
 
-	Mechanic findByNameAndPasswordAndGarageCode(String name, String password, String garageCode);
+	Mechanic findByNameAndPassword(String name, String password);
 }
